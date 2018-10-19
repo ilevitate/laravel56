@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('one-word');
 });
 
-Route::get('/','Controller@oneWord');
+Route::get('/one-word','Controller@oneWord');

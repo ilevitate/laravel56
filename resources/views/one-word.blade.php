@@ -88,7 +88,7 @@
 
     function show() {
         $.ajax({
-            url: 'https://v1.hitokoto.cn/',
+            url: 'https://v1.hitokoto.cn?callback=' + 'http://one-word.aonelang.cn',
             type: 'GET',
             dataType: 'json',
             success: function (result) {
