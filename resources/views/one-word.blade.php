@@ -88,13 +88,22 @@
 
     function show() {
         $.ajax({
-            url: 'https://v1.hitokoto.cn?callback=' + 'http://one-word.aonelang.cn/one-word',
+            url: 'https://v1.hitokoto.cn',
             type: 'GET',
             dataType: 'json',
             success: function (result) {
                 // console.log(result);
                 $("#word").html('『 ' + result.hitokoto + ' 』');
                 $("#creator").html('—「 ' + result.creator + ' 」');
+                $.ajax({
+                    url: '/one-word',
+                    type: 'GET',
+                    data: result,
+                    dataType: 'json',
+                    success: function (res) {
+                        // console.log(res);
+                    },
+                });
             }
         })
     }
