@@ -1,3 +1,5 @@
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+
 # Laravel5.6开发测试
 
 ##### 添加了一言API
