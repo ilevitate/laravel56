@@ -60,7 +60,7 @@ class Controller extends BaseController
     {
         $oneWordUrl = 'http://v1.hitokoto.cn';
         $response = CurlUtil::curl_request($oneWordUrl);
-        $hitokoto =  json_decode($response, true);
+        $hitokoto = json_decode($response, true);
         $this->oneWordToDB($hitokoto);
         return $this->success($hitokoto);
     }
@@ -83,7 +83,7 @@ class Controller extends BaseController
         ];
 
         $hitokoto = OneWord::where('hitokoto_id', $data['hitokoto_id'])->first();
-        if (!$hitokoto){
+        if (!$hitokoto) {
             $hitokoto = OneWord::create($data);
         }
         return $hitokoto;

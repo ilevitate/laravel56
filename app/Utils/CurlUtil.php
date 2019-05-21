@@ -4,6 +4,7 @@
  * Date: 2019/5/21
  * Email: <iLevitate@163.com>
  */
+
 namespace App\Utils;
 
 class CurlUtil
@@ -11,7 +12,14 @@ class CurlUtil
 
     const ORDER_THIRD_URL = '';
 
-    //参数1：访问的URL，参数2：post数据(不填则为GET)，参数3：提交的$cookies,参数4：是否返回$cookies,参数5：是否关闭SSL
+    /**
+     * @param string $url 访问的URL
+     * @param string $post post数据(不填则为GET)
+     * @param string $cookie 提交的$cookies
+     * @param int $returnCookie 是否返回$cookies
+     * @param bool $isCloseSSl 是否关闭SSL
+     * @return bool|string
+     */
     public static function curl_request($url, $post = '', $cookie = '', $returnCookie = 0, $isCloseSSl = true)
     {
         $curl = curl_init();
@@ -21,7 +29,7 @@ class CurlUtil
         curl_setopt($curl, CURLOPT_AUTOREFERER, 1);
         curl_setopt($curl, CURLOPT_REFERER, "http://XXX");
         // 关闭SSL验证
-        if ($isCloseSSl){
+        if ($isCloseSSl) {
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         }
