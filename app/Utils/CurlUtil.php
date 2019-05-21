@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * User: zhoujy
+ * Date: 2019/5/21
+ * Email: <iLevitate@163.com>
+ */
 namespace App\Utils;
 
 class CurlUtil

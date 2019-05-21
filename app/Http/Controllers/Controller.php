@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OneWord;
 use App\Utils\CurlUtil;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -41,7 +42,20 @@ class Controller extends BaseController
         return ['code' => 400, 'msg' => $msg, 'data' => $data];
     }
 
+    /**
+     * 测试
+     * @param Request $request
+     */
+    public function test(Request $request)
+    {
+        echo 'ok';
+    }
 
+
+    /**
+     * 获取一言数据
+     * @return array
+     */
     public function oneWord()
     {
         $oneWordUrl = 'http://v1.hitokoto.cn';
@@ -51,6 +65,11 @@ class Controller extends BaseController
         return $this->success($hitokoto);
     }
 
+    /**
+     * 入库
+     * @param $hitokoto
+     * @return mixed
+     */
     public function oneWordToDB($hitokoto)
     {
         $data = [

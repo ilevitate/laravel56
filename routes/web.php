@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('/one-word','Controller@oneWord');
+Route::get('/test','Controller@test');
