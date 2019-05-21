@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\OneWord;
+use App\Utils\CurlUtil;
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Validator;
 
 class Controller extends BaseController
 {
@@ -43,27 +42,24 @@ class Controller extends BaseController
     }
 
 
-    public function oneWord(Request $request)
+    public function oneWord()
     {
-        $rules = [
-            'id' => 'required',
-            'hitokoto' => 'required',
-            'type' => 'required',
-            'from' => 'required',
-            'creator' => 'required',
-            'created_at' => 'required',
-        ];
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()){
-            return $this->error();
-        }
+        $oneWordUrl = 'http://v1.hitokoto.cn';
+        $response = CurlUtil::curl_request($oneWordUrl);
+        $hitokoto =  json_decode($response, true);
+        $this->oneWordToDB($hitokoto);
+        return $this->success($hitokoto);
+    }
+
+    public function oneWordToDB($hitokoto)
+    {
         $data = [
-            'hitokoto_id' => $hitokoto_id = $request->get('id'),
-            'hitokoto' => $request->get('hitokoto'),
-            'type' => $request->get('type'),
-            'from' => $request->get('from'),
-            'creator' => $request->get('creator'),
-            'create_time' => $request->get('created_at'),
+            'hitokoto_id' => $hitokoto['id'],
+            'hitokoto' => $hitokoto['hitokoto'],
+            'type' => $hitokoto['type'],
+            'from' => $hitokoto['from'],
+            'creator' => $hitokoto['creator'],
+            'create_time' => time(),
             'created_at' => Carbon::now()
         ];
 
@@ -71,7 +67,6 @@ class Controller extends BaseController
         if (!$hitokoto){
             $hitokoto = OneWord::create($data);
         }
-
-        return $this->success($hitokoto);
+        return $hitokoto;
     }
 }

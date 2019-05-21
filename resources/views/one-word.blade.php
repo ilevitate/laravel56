@@ -88,22 +88,14 @@
 
     function show() {
         $.ajax({
-            url: 'https://v1.hitokoto.cn',
+            url: '/one-word',
             type: 'GET',
             dataType: 'json',
             success: function (result) {
                 // console.log(result);
-                $("#word").html('『 ' + result.hitokoto + ' 』');
-                $("#creator").html('—「 ' + result.creator + ' 」');
-                $.ajax({
-                    url: '/one-word',
-                    type: 'GET',
-                    data: result,
-                    dataType: 'json',
-                    success: function (res) {
-                        // console.log(res);
-                    },
-                });
+                // console.log(result.data.id);
+                $("#word").html('『 ' + result.data.hitokoto + ' 』');
+                $("#creator").html('—「 ' + result.data.creator + ' 」');
             }
         })
     }
