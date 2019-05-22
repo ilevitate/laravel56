@@ -45,10 +45,11 @@ class Controller extends BaseController
     /**
      * 测试
      * @param Request $request
+     * @return string
      */
     public function test(Request $request)
     {
-        echo 'ok';
+        return 'ok';
     }
 
 
